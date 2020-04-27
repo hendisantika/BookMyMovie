@@ -3,6 +3,7 @@ package com.hendisantika.bookmymovie.repository;
 import com.hendisantika.bookmymovie.entity.Screening;
 import org.springframework.data.repository.CrudRepository;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
