@@ -1,4 +1,4 @@
-package com.hendisantika.entity;
+package com.hendisantika.bookmymovie.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
