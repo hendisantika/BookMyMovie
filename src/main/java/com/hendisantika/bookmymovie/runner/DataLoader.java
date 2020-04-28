@@ -12,10 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by IntelliJ IDEA.
@@ -100,6 +104,27 @@ public class DataLoader implements ApplicationRunner {
             }
 
             movieRepository.save(movie);
+        }
+    }
+
+    private void populateMovieTable() {
+        try (BufferedReader brMovies = new BufferedReader(new InputStreamReader(new ClassPathResource("movies.medium" +
+                ".csv").getInputStream()));
+             BufferedReader brLinks =
+                     new BufferedReader(new InputStreamReader(new ClassPathResource("links.csv").getInputStream()))) {
+            String movieLine;
+            String linkLine;
+            brMovies.readLine();    // Skip header line
+            brLinks.readLine();     // Skip header line
+            while ((movieLine = brMovies.readLine()) != null) {
+                linkLine = brLinks.readLine();
+                //taskExecutor.execute(new ProcessMovie(movieLine, linkLine));
+                new ProcessMovie(movieLine, linkLine).run();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
