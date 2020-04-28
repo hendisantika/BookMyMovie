@@ -57,4 +57,9 @@ public class ScreeningService {
         screeningRepository.save(screening);
         return getBookedSeats(movieScreening);
     }
+
+    public int getBookedSeats(MovieScreening movieScreening) {
+        Screening screening = getScreening(movieScreening);
+        return screening.getBookedTickets();
+    }
 }
