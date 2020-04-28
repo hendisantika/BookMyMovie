@@ -1,6 +1,7 @@
 package com.hendisantika.bookmymovie.validator;
 
 import com.hendisantika.bookmymovie.entity.User;
+import com.hendisantika.bookmymovie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
