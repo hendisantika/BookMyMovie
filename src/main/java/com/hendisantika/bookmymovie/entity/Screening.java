@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,7 +42,7 @@ public class Screening implements Cloneable {
     private String movieName;
 
     @Column(name = "SCREENING_DATE")
-    private java.sql.Date screeningDate;
+    private Date screeningDate;
 
     @Column(name = "SCREENING_TIME")
     private java.sql.Time screeningTime;

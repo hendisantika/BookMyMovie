@@ -1,6 +1,8 @@
 package com.hendisantika.bookmymovie.runner;
 
 import com.hendisantika.bookmymovie.entity.Movie;
+import com.hendisantika.bookmymovie.entity.Screen;
+import com.hendisantika.bookmymovie.entity.Screening;
 import com.hendisantika.bookmymovie.repository.MovieRepository;
 import com.hendisantika.bookmymovie.repository.ScreenRepository;
 import com.hendisantika.bookmymovie.repository.ScreeningRepository;
@@ -11,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.task.TaskExecutor;
@@ -20,6 +23,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by IntelliJ IDEA.
@@ -126,6 +134,76 @@ public class DataLoader implements ApplicationRunner {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void populateScreeningsTable() throws CloneNotSupportedException {
+        /* schema.sql lists 5 theaters, generate 2 screenings randomly for
+         * each screen in each theater
+         */
+        for (int i = 1; i <= 5; i++) {
+            List<Screen> screens = screenRepository.findByTheatreId(i);
+            for (int j = 0; j < screens.size(); j++) {
+                Screening screening1 = new Screening();
+                Screening screening2 = new Screening();
+
+                screening1.setTheatreId(i);
+                screening1.setScreenId(j + 1);
+                screening2.setTheatreId(i);
+                screening2.setScreenId(j + 1);
+
+                // Randomly select 2 movies from the movies db, 1 each for each screen
+                long totalMovies = movieRepository.count();
+                Random random = new Random();
+
+                long movieId1 = random.nextInt((int) totalMovies) + 1;
+                Movie movie1 = null;
+                while ((movie1 = movieRepository.findByMovieId(movieId1)) == null)
+                    movieId1 = random.nextInt((int) totalMovies) + 1;
+
+                long movieId2 = random.nextInt((int) totalMovies) + 1;
+                Movie movie2 = null;
+                while ((movie2 = movieRepository.findByMovieId(movieId2)) == null)
+                    movieId2 = random.nextInt((int) totalMovies) + 1;
+
+                screening1.setMovieName(movie1.getMovieName());
+                screening2.setMovieName(movie2.getMovieName());
+
+                // Get a random date between current date and 3 days from current date
+                Date date1 = new Date((new java.util.Date()).getTime());
+                Date date2 = new Date(date1.getTime() + 3 * 24 * 60 * 60 * 1000);
+                Date randomDate1 = new Date(ThreadLocalRandom.current().nextLong(date1.getTime(), date2.getTime()));
+                Date randomDate2 = new Date(ThreadLocalRandom.current().nextLong(date1.getTime(), date2.getTime()));
+
+                screening1.setScreeningDate(randomDate1);
+                screening2.setScreeningDate(randomDate2);
+
+                screening1.setBookedTickets(0);
+                screening2.setBookedTickets(0);
+
+                // 2 screenings per screen
+                screening1.setScreeningTime(Time.valueOf("10:00:00"));
+                screeningRepository.save(screening1);
+
+                Screening screening1Clone = (Screening) screening1.clone();
+                screening1.setScreeningTime(Time.valueOf("18:00:00"));
+                screeningRepository.save(screening1Clone);
+
+                if (randomDate1.getDate() != randomDate2.getDate()) {
+                    screening2.setScreeningTime(Time.valueOf("10:00:00"));
+                    screeningRepository.save(screening2);
+
+                    Screening screening2Clone = (Screening) screening2.clone();
+                    screening2.setScreeningTime(Time.valueOf("18:00:00"));
+                    screeningRepository.save(screening2Clone);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run(ApplicationArguments applicationArguments) throws Exception {
+        populateMovieTable();
+        populateScreeningsTable();
     }
 
 }
