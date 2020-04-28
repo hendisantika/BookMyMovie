@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * Date: 29/04/20
  * Time: 01.16
  */
+@Service
 public class SecurityService {
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
     @Autowired
