@@ -53,4 +53,20 @@ public class UserController {
 
         return "welcome";
     }
+
+    @GetMapping(value = "/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            return "logout";
+
+        return "login";
+    }
+
+    @GetMapping(value = "/welcome")
+    public String welcome(Model model) {
+        return "welcome";
+    }
 }
