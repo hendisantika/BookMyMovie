@@ -1,6 +1,7 @@
 package com.hendisantika.bookmymovie.service;
 
 import com.hendisantika.bookmymovie.business.domain.MovieScreening;
+import com.hendisantika.bookmymovie.entity.Movie;
 import com.hendisantika.bookmymovie.entity.Screening;
 import com.hendisantika.bookmymovie.entity.Theatre;
 import com.hendisantika.bookmymovie.repository.MovieRepository;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -67,5 +71,20 @@ public class ScreeningService {
         Screening screening = getScreening(movieScreening);
         long screenId = screening.getScreenId();
         return screenRepository.findByScreenId(screenId).getSeatsNum();
+    }
+
+    public Set<Movie> getMoviesByDate(Date date) {
+        Iterable<Screening> screenings =
+                this.screeningRepository.findByScreeningDate(new java.sql.Date(date.getTime()));
+        Set<Movie> movies = new HashSet<>();
+
+        if (screenings != null) {
+            for (Screening screening : screenings) {
+                Movie movie = movieRepository.findByMovieName(screening.getMovieName());
+                movies.add(movie);
+            }
+        }
+
+        return movies;
     }
 }
