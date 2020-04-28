@@ -62,4 +62,10 @@ public class ScreeningService {
         Screening screening = getScreening(movieScreening);
         return screening.getBookedTickets();
     }
+
+    public int getTotalSeats(MovieScreening movieScreening) {
+        Screening screening = getScreening(movieScreening);
+        long screenId = screening.getScreenId();
+        return screenRepository.findByScreenId(screenId).getSeatsNum();
+    }
 }
