@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -86,5 +88,39 @@ public class ScreeningService {
         }
 
         return movies;
+    }
+
+    public List<Screening> getScreeningsByMovie(String movieName) {
+        return this.screeningRepository.findByMovieName(movieName);
+    }
+
+    public List<MovieScreening> getMovieScreeningsByMovie(String movieName) {
+        Iterable<Screening> screenings = this.screeningRepository.findByMovieName(movieName);
+        List<MovieScreening> movieScreenings = new ArrayList<>();
+
+        if (screenings != null) {
+            for (Screening screening : screenings) {
+                MovieScreening movieScreening = new MovieScreening();
+                Theatre theatre = theatreRepository.findByTheatreId(screening.getTheatreId());
+                Movie movie = movieRepository.findByMovieName(screening.getMovieName());
+
+                movieScreening.setMovieName(screening.getMovieName());
+                movieScreening.setMoviePosterURL(movie.getMoviePosterUrl());
+
+                if (theatre != null) {
+                    movieScreening.setTheatreId(theatre.getTheatreId());
+                    movieScreening.setTheatreName(theatre.getTheatreName());
+                    movieScreening.setTheatreCity(theatre.getTheatreCity());
+                }
+
+
+                movieScreening.setScreeningDate(screening.getScreeningDate().toString());
+                movieScreening.setScreeningTime(screening.getScreeningTime().toString());
+
+                movieScreenings.add(movieScreening);
+            }
+        }
+
+        return movieScreenings;
     }
 }
