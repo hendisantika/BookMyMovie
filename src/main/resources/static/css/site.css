@@ -13,12 +13,12 @@ footer {
     justify-content: flex-end;
     padding: 10px;
     align-items: stretch;
+}
 
 .card {
     flex: 1 1 auto;
 }
 
-}
 
 .movie-cards {
     padding: 20px 0;
