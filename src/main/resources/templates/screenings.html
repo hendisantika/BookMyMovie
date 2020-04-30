@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <title>Movie Reservations</title>
+    <link href="images/movie-projector-icon.png" rel="shortcut icon" type="image/x-icon"/>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../static/css/site.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img height="30px" src="images/movie-projector-icon.png" style="display:inline-block" width="30px"/>
+                <span style="font-family:cursive;display:inline-block;color:yellow">BookMyMovie</span>
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/movies">Home</a></li>
+            <li><a href="/movies">Movies</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container movie-details">
+    <img th:src="${movie.moviePosterUrl}"/>
+    <h4 th:text="${movie.movieName}"></h4>
+</div>
+<div class="container">
+    <ul class="movie-dates">
+        <li></li>
+    </ul>
+</div>
+<div class="container" th:each="screening:${screenings}">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td class="col-md-4" th:text="${screening.theatreName} + ',' + ${screening.theatreCity}"></td>
+            <td class="col-md-4" th:text="${screening.screeningDate}"></td>
+            <td class="col-md-4" th:text="${screening.screeningTime}"></td>
+            <td><a class="btn btn-primary btn-sm" data-toggle="popover" data-trigger="focus" role="button" tabindex="0"
+                   title="Number of Seats"
+            >
+                Book Tickets!
+            </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer class="footer navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><p class="text-muted">@Copyright 2018 Vaibhav Sood</p></div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/site.js"></script>
+
+</body>
+</html>
