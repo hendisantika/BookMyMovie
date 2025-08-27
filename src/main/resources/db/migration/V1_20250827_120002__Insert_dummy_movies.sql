@@ -1,0 +1,22 @@
+-- Insert dummy movies data
+INSERT INTO MOVIE (MOVIE_ID, MOVIE_NAME, MOVIE_POSTER_URL, MOVIE_TAGS) VALUES
+(1, 'The Matrix', 'https://via.placeholder.com/300x400?text=The+Matrix', 'Action,Sci-Fi'),
+(2, 'Inception', 'https://via.placeholder.com/300x400?text=Inception', 'Action,Sci-Fi,Thriller'),
+(3, 'The Dark Knight', 'https://via.placeholder.com/300x400?text=The+Dark+Knight', 'Action,Crime,Drama'),
+(4, 'Pulp Fiction', 'https://via.placeholder.com/300x400?text=Pulp+Fiction', 'Crime,Drama'),
+(5, 'The Shawshank Redemption', 'https://via.placeholder.com/300x400?text=The+Shawshank+Redemption', 'Drama'),
+(6, 'Forrest Gump', 'https://via.placeholder.com/300x400?text=Forrest+Gump', 'Drama,Romance'),
+(7, 'The Godfather', 'https://via.placeholder.com/300x400?text=The+Godfather', 'Crime,Drama'),
+(8, 'Titanic', 'https://via.placeholder.com/300x400?text=Titanic', 'Drama,Romance'),
+(9, 'Avatar', 'https://via.placeholder.com/300x400?text=Avatar', 'Action,Adventure,Fantasy'),
+(10, 'Star Wars: A New Hope', 'https://via.placeholder.com/300x400?text=Star+Wars', 'Action,Adventure,Fantasy'),
+(11, 'Jurassic Park', 'https://via.placeholder.com/300x400?text=Jurassic+Park', 'Action,Adventure,Sci-Fi'),
+(12, 'Back to the Future', 'https://via.placeholder.com/300x400?text=Back+to+the+Future', 'Adventure,Comedy,Sci-Fi'),
+(13, 'The Lion King', 'https://via.placeholder.com/300x400?text=The+Lion+King', 'Animation,Adventure,Drama'),
+(14, 'Spider-Man', 'https://via.placeholder.com/300x400?text=Spider-Man', 'Action,Adventure'),
+(15, 'Iron Man', 'https://via.placeholder.com/300x400?text=Iron+Man', 'Action,Adventure,Sci-Fi'),
+(16, 'The Avengers', 'https://via.placeholder.com/300x400?text=The+Avengers', 'Action,Adventure,Sci-Fi'),
+(17, 'Guardians of the Galaxy', 'https://via.placeholder.com/300x400?text=Guardians+of+the+Galaxy', 'Action,Adventure,Comedy'),
+(18, 'Black Panther', 'https://via.placeholder.com/300x400?text=Black+Panther', 'Action,Adventure,Sci-Fi'),
+(19, 'Wonder Woman', 'https://via.placeholder.com/300x400?text=Wonder+Woman', 'Action,Adventure,Fantasy'),
+(20, 'Captain Marvel', 'https://via.placeholder.com/300x400?text=Captain+Marvel', 'Action,Adventure,Sci-Fi');
