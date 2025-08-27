@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,7 @@ import java.util.Date;
 public class Screening implements Cloneable {
     @Id
     @Column(name = "SCREENING_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long screeningId;
 
     @Column(name = "THEATRE_ID")
@@ -42,6 +44,7 @@ public class Screening implements Cloneable {
     private String movieName;
 
     @Column(name = "SCREENING_DATE")
+    @Temporal(TemporalType.DATE)
     private Date screeningDate;
 
     @Column(name = "SCREENING_TIME")

@@ -28,7 +28,7 @@ public class Movie {
     private String movieName;
 
     @Column(name = "MOVIE_ID")
-    private long movieId;
+    private int movieId;
 
     @Column(name = "MOVIE_POSTER_URL")
     private String moviePosterUrl;

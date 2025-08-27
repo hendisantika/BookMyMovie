@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,14 @@ import lombok.NoArgsConstructor;
  */
 
 @Entity
+@Table(name = "TICKET")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ticket {
     @Id
     @Column(name = "TICKET_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ticketId;
 
     @Column(name = "SCREENING_ID")

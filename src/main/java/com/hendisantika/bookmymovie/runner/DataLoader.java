@@ -41,9 +41,9 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 public class DataLoader implements ApplicationRunner {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private MovieRepository movieRepository;
-    private ScreenRepository screenRepository;
-    private ScreeningRepository screeningRepository;
+    private final MovieRepository movieRepository;
+    private final ScreenRepository screenRepository;
+    private final ScreeningRepository screeningRepository;
     @Autowired
     private TaskExecutor taskExecutor;
 
@@ -68,8 +68,8 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private class ProcessMovie implements Runnable {
-        private String movieLine;
-        private String linkLine;
+        private final String movieLine;
+        private final String linkLine;
 
         ProcessMovie(String movieLine, String linkLine) {
             this.movieLine = movieLine;
@@ -91,7 +91,7 @@ public class DataLoader implements ApplicationRunner {
             }
 
             Movie movie = new Movie();
-            movie.setMovieId(Long.parseLong(movieInfo[0]));
+            movie.setMovieId(Integer.parseInt(movieInfo[0]));
             movie.setMovieName(movieName.substring(0, movieName.indexOf('(')).trim());
             movie.setMovieTags(movieInfo[2]);
 

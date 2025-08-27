@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class Theatre {
     @Id
     @Column(name = "THEATRE_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long theatreId;
 
     @Column(name = "THEATRE_NAME")
