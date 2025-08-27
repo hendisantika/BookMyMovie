@@ -10,6 +10,7 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,9 +107,15 @@ public class DataLoader implements ApplicationRunner {
             }
 
             if (movieLensPage != null) {
-                Element image =
-                        movieLensPage.getElementsByClass("poster").first().children().first().children().first();
-                movie.setMoviePosterUrl(image.attr("src"));
+                Elements posterElements = movieLensPage.getElementsByClass("poster");
+                if (posterElements.first() != null && posterElements.first().children().first() != null
+                        && posterElements.first().children().first().children().first() != null) {
+                    Element image = posterElements.first().children().first().children().first();
+                    movie.setMoviePosterUrl(image.attr("src"));
+                } else {
+                    // Fallback - set a default poster URL or leave it null
+                    movie.setMoviePosterUrl("https://via.placeholder.com/300x400?text=No+Poster");
+                }
             }
 
             movieRepository.save(movie);
