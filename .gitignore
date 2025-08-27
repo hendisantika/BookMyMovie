@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+mysql_data
+logs
 
 ### STS ###
 .apt_generated

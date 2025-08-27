@@ -19,8 +19,8 @@ import java.util.List;
 public interface ScreeningRepository extends CrudRepository<Screening, Long> {
     List<Screening> findByScreeningDate(Date screeningDate);
 
-    List<Screening> findByMovieName(String movieName);
+    List<Screening> findByMovieId(int movieId);
 
-    Screening findByMovieNameAndTheatreIdAndScreeningDateAndScreeningTime(String movieName, long theatreId,
-                                                                          Date screeningDate, Time screeningTime);
+    Screening findByMovieIdAndTheatreIdAndScreeningDateAndScreeningTime(int movieId, long theatreId,
+                                                                        Date screeningDate, Time screeningTime);
 }

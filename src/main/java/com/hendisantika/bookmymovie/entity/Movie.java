@@ -24,11 +24,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Movie {
     @Id
-    @Column(name = "MOVIE_NAME")
-    private String movieName;
-
     @Column(name = "MOVIE_ID")
     private int movieId;
+
+    @Column(name = "MOVIE_NAME")
+    private String movieName;
 
     @Column(name = "MOVIE_POSTER_URL")
     private String moviePosterUrl;

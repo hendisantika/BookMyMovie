@@ -40,8 +40,8 @@ public class Screening implements Cloneable {
     @Column(name = "SCREEN_ID")
     private long screenId;
 
-    @Column(name = "MOVIE_NAME")
-    private String movieName;
+    @Column(name = "MOVIE_ID")
+    private int movieId;
 
     @Column(name = "SCREENING_DATE")
     @Temporal(TemporalType.DATE)

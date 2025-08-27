@@ -12,8 +12,8 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 28/04/20
  * Time: 04.37
  */
-public interface MovieRepository extends CrudRepository<Movie, String> {
+public interface MovieRepository extends CrudRepository<Movie, Integer> {
     Movie findByMovieName(String movieName);
 
-    Movie findByMovieId(long movieId);
+    Movie findByMovieId(int movieId);
 }

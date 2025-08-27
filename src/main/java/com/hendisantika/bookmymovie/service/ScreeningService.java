@@ -31,11 +31,11 @@ import java.util.Set;
 @Service
 public class ScreeningService {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    private ScreeningRepository screeningRepository;
-    private MovieRepository movieRepository;
-    private TheatreRepository theatreRepository;
-    private TicketRepository ticketRepository;
-    private ScreenRepository screenRepository;
+    private final ScreeningRepository screeningRepository;
+    private final MovieRepository movieRepository;
+    private final TheatreRepository theatreRepository;
+    private final TicketRepository ticketRepository;
+    private final ScreenRepository screenRepository;
 
     public ScreeningService(ScreeningRepository screeningRepository, MovieRepository movieRepository,
                             TheatreRepository theatreRepository
@@ -52,7 +52,10 @@ public class ScreeningService {
                 movieScreening.getTheatreCity());
         if (theatre == null)
             return null;
-        return screeningRepository.findByMovieNameAndTheatreIdAndScreeningDateAndScreeningTime(movieScreening.getMovieName(), theatre.getTheatreId(),
+        Movie movie = movieRepository.findByMovieName(movieScreening.getMovieName());
+        if (movie == null)
+            return null;
+        return screeningRepository.findByMovieIdAndTheatreIdAndScreeningDateAndScreeningTime(movie.getMovieId(), theatre.getTheatreId(),
                 java.sql.Date.valueOf(movieScreening.getScreeningDate()),
                 java.sql.Time.valueOf(movieScreening.getScreeningTime()));
     }
@@ -82,7 +85,7 @@ public class ScreeningService {
 
         if (screenings != null) {
             for (Screening screening : screenings) {
-                Movie movie = movieRepository.findByMovieName(screening.getMovieName());
+                Movie movie = movieRepository.findByMovieId(screening.getMovieId());
                 movies.add(movie);
             }
         }
@@ -91,21 +94,27 @@ public class ScreeningService {
     }
 
     public List<Screening> getScreeningsByMovie(String movieName) {
-        return this.screeningRepository.findByMovieName(movieName);
+        Movie movie = movieRepository.findByMovieName(movieName);
+        if (movie == null)
+            return new ArrayList<>();
+        return this.screeningRepository.findByMovieId(movie.getMovieId());
     }
 
     public List<MovieScreening> getMovieScreeningsByMovie(String movieName) {
-        Iterable<Screening> screenings = this.screeningRepository.findByMovieName(movieName);
+        Movie movie = movieRepository.findByMovieName(movieName);
+        if (movie == null)
+            return new ArrayList<>();
+        Iterable<Screening> screenings = this.screeningRepository.findByMovieId(movie.getMovieId());
         List<MovieScreening> movieScreenings = new ArrayList<>();
 
         if (screenings != null) {
             for (Screening screening : screenings) {
                 MovieScreening movieScreening = new MovieScreening();
                 Theatre theatre = theatreRepository.findByTheatreId(screening.getTheatreId());
-                Movie movie = movieRepository.findByMovieName(screening.getMovieName());
+                Movie movieForScreening = movieRepository.findByMovieId(screening.getMovieId());
 
-                movieScreening.setMovieName(screening.getMovieName());
-                movieScreening.setMoviePosterURL(movie.getMoviePosterUrl());
+                movieScreening.setMovieName(movieForScreening.getMovieName());
+                movieScreening.setMoviePosterURL(movieForScreening.getMoviePosterUrl());
 
                 if (theatre != null) {
                     movieScreening.setTheatreId(theatre.getTheatreId());

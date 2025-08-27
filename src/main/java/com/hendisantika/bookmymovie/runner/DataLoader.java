@@ -155,18 +155,18 @@ public class DataLoader implements ApplicationRunner {
                 long totalMovies = movieRepository.count();
                 Random random = new Random();
 
-                long movieId1 = random.nextInt((int) totalMovies) + 1;
+                int movieId1 = random.nextInt((int) totalMovies) + 1;
                 Movie movie1 = null;
                 while ((movie1 = movieRepository.findByMovieId(movieId1)) == null)
                     movieId1 = random.nextInt((int) totalMovies) + 1;
 
-                long movieId2 = random.nextInt((int) totalMovies) + 1;
+                int movieId2 = random.nextInt((int) totalMovies) + 1;
                 Movie movie2 = null;
                 while ((movie2 = movieRepository.findByMovieId(movieId2)) == null)
                     movieId2 = random.nextInt((int) totalMovies) + 1;
 
-                screening1.setMovieName(movie1.getMovieName());
-                screening2.setMovieName(movie2.getMovieName());
+                screening1.setMovieId(movie1.getMovieId());
+                screening2.setMovieId(movie2.getMovieId());
 
                 // Get a random date between current date and 3 days from current date
                 Date date1 = new Date((new java.util.Date()).getTime());
