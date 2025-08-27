@@ -1,15 +1,14 @@
 package com.hendisantika.bookmymovie.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,7 +33,7 @@ public class Seat {
     @Column(name = "ROW_ID")
     private char row_id;
 
-    @Column(name = "ROW_NUMBER")
+    @Column(name = "SEAT_ROW_NUMBER")
     private int row_number;
 
     @Column(name = "SCREEN_ID")

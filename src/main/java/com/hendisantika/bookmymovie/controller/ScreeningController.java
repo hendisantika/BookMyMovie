@@ -3,6 +3,7 @@ package com.hendisantika.bookmymovie.controller;
 import com.hendisantika.bookmymovie.business.domain.MovieScreening;
 import com.hendisantika.bookmymovie.repository.MovieRepository;
 import com.hendisantika.bookmymovie.service.ScreeningService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
