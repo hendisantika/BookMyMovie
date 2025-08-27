@@ -18,7 +18,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -39,7 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Date: 29/04/20
  * Time: 01.08
  */
-@Component
+// @Component - Disabled to use Flyway migrations instead
 public class DataLoader implements ApplicationRunner {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final MovieRepository movieRepository;
