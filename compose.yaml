@@ -19,5 +19,20 @@ services:
       interval: 5s
       start_period: 30s
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: bookmymovie-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: yu71
+      PMA_PASSWORD: 53cret
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8082:80"
+    depends_on:
+      - mysql
+
 volumes:
   mysql_data:
