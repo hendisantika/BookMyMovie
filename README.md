@@ -73,6 +73,21 @@ docker-compose up -d mysql
 
 The application will be available at `http://localhost:8080`
 
+### 4. Default Login Credentials
+
+The application comes with pre-configured user accounts for testing:
+
+| Username | Password |
+|----------|----------|
+| yuji     | 53cret   |
+| geto     | 53cret   |
+| gojo     | 53cret   |
+| senku    | 53cret   |
+| yaiba    | 53cret   |
+| tanjiro  | 53cret   |
+
+You can use any of these accounts to log in and test the application.
+
 ## Database Configuration
 
 The application uses MySQL as the primary database:
@@ -83,6 +98,16 @@ The application uses MySQL as the primary database:
 - **Password**: 53cret
 
 Database schema is managed through Flyway migrations located in `src/main/resources/db/migration/`.
+
+### phpMyAdmin
+
+For easy database management, phpMyAdmin is available at:
+
+- **URL**: http://localhost:8082
+- **Username**: yu71 (or root)
+- **Password**: 53cret (or root for root user)
+
+You can use phpMyAdmin to browse tables, run queries, and manage the database through a web interface.
 
 ## API Endpoints
 
