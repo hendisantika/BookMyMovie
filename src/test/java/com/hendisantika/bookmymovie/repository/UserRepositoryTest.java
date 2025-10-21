@@ -1,6 +1,6 @@
 package com.hendisantika.bookmymovie.repository;
 
-import com.hendisantika.bookmymovie.entity.Movie;
+import com.hendisantika.bookmymovie.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,65 +12,61 @@ import org.springframework.test.context.TestPropertySource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for MovieRepository
+ * Integration tests for UserRepository
  */
 @DataJpaTest(excludeAutoConfiguration = org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @TestPropertySource(properties = {
         "spring.docker.compose.enabled=false"
 })
-class MovieRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private MovieRepository movieRepository;
+    private UserRepository userRepository;
 
-    private Movie testMovie;
+    private User testUser;
 
     @BeforeEach
     void setUp() {
-        testMovie = new Movie(0, "The Shawshank Redemption",
-                "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg", "Drama");
+        testUser = new User();
+        testUser.setUsername("testuser");
+        testUser.setPassword("$2a$10$encodedPassword");
     }
 
     @Test
-    void findByMovieName_shouldReturnMovie() {
+    void findByUsername_shouldReturnUser() {
         // Given
-        entityManager.persist(testMovie);
+        entityManager.persist(testUser);
         entityManager.flush();
 
         // When
-        Movie found = movieRepository.findByMovieName("The Shawshank Redemption");
+        User found = userRepository.findByUsername("testuser");
 
         // Then
         assertThat(found).isNotNull();
-        assertThat(found.getMovieName()).isEqualTo("The Shawshank Redemption");
-        assertThat(found.getMovieTags()).isEqualTo("Drama");
+        assertThat(found.getUsername()).isEqualTo("testuser");
+        assertThat(found.getPassword()).isEqualTo("$2a$10$encodedPassword");
     }
 
     @Test
-    void findByMovieName_withNonExistentMovie_shouldReturnNull() {
+    void findByUsername_withNonExistentUser_shouldReturnNull() {
         // When
-        Movie found = movieRepository.findByMovieName("NonExistent Movie");
+        User found = userRepository.findByUsername("nonexistent");
 
         // Then
         assertThat(found).isNull();
     }
 
     @Test
-    void findByMovieId_shouldReturnMovie() {
-        // Given
-        Movie saved = entityManager.persist(testMovie);
-        entityManager.flush();
-
+    void save_shouldPersistUser() {
         // When
-        Movie found = movieRepository.findByMovieId(saved.getMovieId());
+        User saved = userRepository.save(testUser);
 
         // Then
-        assertThat(found).isNotNull();
-        assertThat(found.getMovieId()).isEqualTo(saved.getMovieId());
-        assertThat(found.getMovieName()).isEqualTo("The Shawshank Redemption");
+        assertThat(saved.getId()).isNotNull();
+        assertThat(saved.getUsername()).isEqualTo("testuser");
     }
 }

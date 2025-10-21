@@ -51,9 +51,9 @@ class SecurityServiceTest {
         // Given
         when(userDetailsService.loadUserByUsername("testuser")).thenReturn(testUserDetails);
 
+        // Create authenticated token with authorities (this makes it trusted)
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(testUserDetails, "password123", testUserDetails.getAuthorities());
-        authToken.setAuthenticated(true);
 
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authToken);
