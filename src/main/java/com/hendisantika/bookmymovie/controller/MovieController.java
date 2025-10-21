@@ -3,9 +3,10 @@ package com.hendisantika.bookmymovie.controller;
 import com.hendisantika.bookmymovie.business.domain.MovieScreening;
 import com.hendisantika.bookmymovie.entity.Movie;
 import com.hendisantika.bookmymovie.service.ScreeningService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,15 @@ import java.util.Set;
  * Date: 29/04/20
  * Time: 01.21
  */
+@Slf4j
 @Controller
 @RequestMapping("/movies")
+@RequiredArgsConstructor
 public class MovieController {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private ScreeningService screeningService;
+    private final ScreeningService screeningService;
 
     @GetMapping
     public String getMovies(@RequestParam(value = "date", required = false) String dateString, Model model) {

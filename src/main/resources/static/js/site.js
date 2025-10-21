@@ -8,11 +8,11 @@ function setPicker() {
                 }
             }
         });
-};
+}
 
 function getRequestParam(p) {
     return (window.location.search.match(new RegExp('[?&]' + p + '=([^&]+)')) || [, null])[1];
-};
+}
 
 function setInitialDate() {
     var requestDate = getRequestParam('date');
@@ -23,14 +23,14 @@ function setInitialDate() {
     }
     $('#datepicker').datepicker('setDate', requestDate);
 
-};
+}
 
 function reloadPageForDateSelection() {
     var selectedDate = document.getElementById('datepicker').value;
     var redirectLink = window.location.protocol + "//" + window.location.host + window.location.pathname + '?date=' + selectedDate;
     console.log('Redirecting to: ' + redirectLink);
     window.location.href = redirectLink;
-};
+}
 
 function formatDate(input) {
     var dateFormat = 'yyyy-mm-dd';
@@ -41,7 +41,7 @@ function formatDate(input) {
     });
 
     return new Date(parts[fmt['yyyy']], parts[fmt['mm']] - 1, parts[fmt['dd']]);
-};
+}
 
 function bookTickets(selectedMovie) {
     var redirectLink = window.location.protocol + "//" + window.location.host + "/" + "screenings" + "?movie=" + selectedMovie;
@@ -65,8 +65,12 @@ $(document).ready(function () {
         animation: true,
         content: popoverContent
     });
-    //$(".bookButton").click(function() {
 
-    //}
-    //);
+    // Handle book tickets button clicks
+    $('.book-tickets-btn').on('click', function () {
+        var movieName = $(this).data('movie-name');
+        if (movieName) {
+            bookTickets(movieName);
+        }
+    });
 });
