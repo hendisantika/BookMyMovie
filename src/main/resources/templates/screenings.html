@@ -91,7 +91,15 @@
                         <span th:text="${screening.screeningTime}">Time</span>
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="#">Book Tickets</a>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{/seats(movieName=${screening.movieName},
+                                            moviePoster=${screening.moviePosterUrl},
+                                            theatreName=${screening.theatreName},
+                                            theatreCity=${screening.theatreCity},
+                                            screeningDate=${screening.screeningDate},
+                                            screeningTime=${screening.screeningTime})}">
+                            Book Tickets
+                        </a>
                     </td>
                 </tr>
                 </tbody>
