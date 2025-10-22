@@ -1,0 +1,7 @@
+-- Update existing theatres to use Bandung area (West Java, Indonesia) theatres
+
+UPDATE THEATRE SET THEATRE_NAME = 'CGV Paris Van Java', THEATRE_CITY = 'Bandung' WHERE THEATRE_ID = 1;
+UPDATE THEATRE SET THEATRE_NAME = 'XXI Cihampelas Walk', THEATRE_CITY = 'Bandung' WHERE THEATRE_ID = 2;
+UPDATE THEATRE SET THEATRE_NAME = 'Cinepolis BTC', THEATRE_CITY = 'Bandung' WHERE THEATRE_ID = 3;
+UPDATE THEATRE SET THEATRE_NAME = 'XXI Trans Studio Mall Bandung', THEATRE_CITY = 'Bandung' WHERE THEATRE_ID = 4;
+UPDATE THEATRE SET THEATRE_NAME = 'CGV 23 Paskal', THEATRE_CITY = 'Bandung' WHERE THEATRE_ID = 5;
