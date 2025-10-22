@@ -49,8 +49,11 @@ function bookTickets(selectedMovie) {
 }
 
 $(document).ready(function () {
-    setPicker();
-    setInitialDate();
+    // Only initialize datepicker if the element exists
+    if ($('#datepicker').length > 0) {
+        setPicker();
+        setInitialDate();
+    }
 
     // Handle book tickets button clicks
     $('.book-tickets-btn').on('click', function () {
