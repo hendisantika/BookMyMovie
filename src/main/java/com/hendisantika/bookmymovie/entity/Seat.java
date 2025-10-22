@@ -28,14 +28,14 @@ public class Seat {
     @Id
     @Column(name = "SEAT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long seat_id;
+    private long seatId;
 
-    @Column(name = "ROW_ID")
-    private char row_id;
+    @Column(name = "ROW_ID", length = 1, columnDefinition = "CHAR(1)")
+    private String rowId;
 
     @Column(name = "SEAT_ROW_NUMBER")
-    private int row_number;
+    private int seatRowNumber;
 
     @Column(name = "SCREEN_ID")
-    private long screen_id;
+    private long screenId;
 }

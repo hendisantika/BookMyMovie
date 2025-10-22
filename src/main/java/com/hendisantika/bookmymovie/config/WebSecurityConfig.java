@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/static/**", "/assets/**", "/css/**", "/images/**",
-                                       "/js/**", "/templates/**", "/registration", "/movies/**", "/theatres/**").permitAll()
+                                "/js/**", "/templates/**", "/registration", "/movies/**", "/theatres/**", "/seats/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()
                         .anyRequest().authenticated()
                 )
