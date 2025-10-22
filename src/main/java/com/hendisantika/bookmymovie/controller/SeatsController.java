@@ -23,8 +23,27 @@ public class SeatsController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping
-    public String bookSeats(@RequestParam(value = "count", required = true) int seatCount, Model model) {
-        model.addAttribute("count", seatCount);
+    public String bookSeats(@RequestParam(value = "count", required = false) Integer seatCount,
+                           @RequestParam(value = "movieName", required = false) String movieName,
+                           @RequestParam(value = "moviePoster", required = false) String moviePoster,
+                           @RequestParam(value = "theatreName", required = false) String theatreName,
+                           @RequestParam(value = "theatreCity", required = false) String theatreCity,
+                           @RequestParam(value = "screeningDate", required = false) String screeningDate,
+                           @RequestParam(value = "screeningTime", required = false) String screeningTime,
+                           Model model) {
+
+        // Add movie and screening details to the model
+        model.addAttribute("count", seatCount != null ? seatCount : 0);
+        model.addAttribute("movieName", movieName);
+        model.addAttribute("moviePoster", moviePoster);
+        model.addAttribute("theatreName", theatreName);
+        model.addAttribute("theatreCity", theatreCity);
+        model.addAttribute("screeningDate", screeningDate);
+        model.addAttribute("screeningTime", screeningTime);
+
+        LOGGER.info("Booking seats for movie: {}, theatre: {}, date: {}, time: {}",
+                   movieName, theatreName, screeningDate, screeningTime);
+
         return "seats";
     }
 }
