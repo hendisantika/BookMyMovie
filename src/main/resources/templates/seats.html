@@ -1,61 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <title>Movie Reservations</title>
+    <title>Pick Your Seats - BookMyMovie</title>
     <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
     <link href="/images/ticket-icon.svg" rel="apple-touch-icon"/>
-    <link href="https://code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css" rel="stylesheet"/>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../static/css/site.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="css/site.css" rel="stylesheet"/>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar">
     <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <img height="30px" src="images/movie-projector-icon.png" style="display:inline-block" width="30px"/>
-                <span style="font-family:cursive;display:inline-block;color:yellow">BookMyMovie</span>
-            </a>
-        </div>
-        <ul class="nav navbar-nav">
+        <a class="navbar-brand" href="/movies">
+            <img alt="BookMyMovie" height="32" src="/images/ticket-icon.svg" width="32"/>
+            <span>BookMyMovie</span>
+        </a>
+        <ul class="nav">
             <li><a href="/movies">Home</a></li>
             <li><a href="/movies">Movies</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item" sec:authorize="isAnonymous()">
-                <a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <ul class="nav">
+            <li sec:authorize="isAnonymous()">
+                <a href="/login">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Login
+                </a>
             </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/logout">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Logout
+                </a>
             </li>
         </ul>
     </div>
 </nav>
-<div class="booking-seats">
-    <h2 style="text-align:center;">Booking seats...</h2>
-    <div class="loader">
+
+<div class="container">
+    <!-- Movie Details Card -->
+    <div class="card" style="margin: var(--spacing-xl) 0;">
+        <div style="display: grid; grid-template-columns: 200px 1fr; gap: var(--spacing-lg); align-items: start;">
+            <!-- Movie Poster -->
+            <div>
+                <img alt="Movie Poster" style="width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md);"
+                     th:src="${moviePoster}"/>
+            </div>
+
+            <!-- Movie and Screening Info -->
+            <div>
+                <h2 style="margin: 0 0 var(--spacing-md) 0; background: var(--gradient-cinema);
+                           -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                    th:text="${movieName}">Movie Name</h2>
+
+                <div style="display: grid; gap: var(--spacing-sm);">
+                    <!-- Theatre -->
+                    <div style="display: flex; align-items: center; color: var(--text-secondary);">
+                        <svg fill="currentColor" height="20" style="margin-right: var(--spacing-sm);"
+                             viewBox="0 0 16 16" width="20">
+                            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                        </svg>
+                        <strong>Theatre:</strong>&nbsp;<span th:text="${theatreName} + ', ' + ${theatreCity}">Theatre Name</span>
+                    </div>
+
+                    <!-- Date -->
+                    <div style="display: flex; align-items: center; color: var(--text-secondary);">
+                        <svg fill="currentColor" height="20" style="margin-right: var(--spacing-sm);"
+                             viewBox="0 0 16 16" width="20">
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                        <strong>Date:</strong>&nbsp;<span th:text="${screeningDate}">Date</span>
+                    </div>
+
+                    <!-- Time -->
+                    <div style="display: flex; align-items: center; color: var(--text-secondary);">
+                        <svg fill="currentColor" height="20" style="margin-right: var(--spacing-sm);"
+                             viewBox="0 0 16 16" width="20">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                        </svg>
+                        <strong>Time:</strong>&nbsp;<span th:text="${screeningTime}">Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seat Selection Section -->
+    <div class="card">
+        <h3 style="text-align: center; color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            Select Your Seats
+        </h3>
+
+        <div class="booking-seats">
+            <h2 style="text-align:center;">Booking seats...</h2>
+            <div class="loader"></div>
+        </div>
+
+        <div class="booking-success">
+            <p>
+                <strong>Success!</strong> Enjoy the show!
+            </p>
+        </div>
     </div>
 </div>
-<div class="booking-success">
-    <p>
-        <strong>Success!</strong> Enjoy the show!
-    </p>
-</div>
-<footer class="footer navbar-inverse navbar-fixed-bottom">
+
+<footer>
     <div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4"><p class="text-muted">@Copyright 2020 Hendi Santika</p></div>
-        </div>
+        <p class="text-muted">© 2025 BookMyMovie. All rights reserved.</p>
     </div>
 </footer>
 
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/site.js"></script>
 
 </body>
