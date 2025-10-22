@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <title>Theatres - BookMyMovie</title>
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+    <link href="/images/ticket-icon.svg" rel="apple-touch-icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="/css/site.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/movies">
+            <img alt="BookMyMovie" height="32" src="/images/ticket-icon.svg" width="32"/>
+            <span>BookMyMovie</span>
+        </a>
+        <ul class="nav">
+            <li><a href="/movies">Home</a></li>
+            <li><a href="/movies">Movies</a></li>
+            <li><a class="active" href="/theatres">Theatres</a></li>
+        </ul>
+        <ul class="nav">
+            <li sec:authorize="isAnonymous()">
+                <a href="/login">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Login
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/logout">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="movies-header">
+        <h3>Our Theatres</h3>
+        <p style="color: var(--text-secondary); font-size: 1.125rem;">Find a cinema near you</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">ID</th>
+                    <th style="width: 45%;">Theatre Name</th>
+                    <th style="width: 45%;">City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="theatre : ${theatres}">
+                    <td th:text="${theatre.theatreId}">1</td>
+                    <td th:text="${theatre.theatreName}">CGV Paris Van Java</td>
+                    <td th:text="${theatre.theatreCity}">Bandung</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(theatres)}">
+                    <td class="text-center" colspan="3" style="padding: 2rem; color: var(--text-secondary);">
+                        No theatres available at the moment.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p class="text-muted">© 2025 BookMyMovie. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/site.js"></script>
+
+</body>
+</html>
