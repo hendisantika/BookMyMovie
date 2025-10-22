@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8"/>
-    <title>Booking Error!</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <title>Booking Error - BookMyMovie</title>
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+    <link href="/images/ticket-icon.svg" rel="apple-touch-icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="/css/site.css" rel="stylesheet"/>
 </head>
 <body>
-<h1>Error! Cannot complete this booking!</h1>
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/movies">
+            <img alt="BookMyMovie" height="32" src="/images/ticket-icon.svg" width="32"/>
+            <span>BookMyMovie</span>
+        </a>
+        <ul class="nav">
+            <li><a href="/movies">Home</a></li>
+            <li><a href="/movies">Movies</a></li>
+        </ul>
+        <ul class="nav">
+            <li sec:authorize="isAnonymous()">
+                <a href="/login">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Login
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/logout">
+                    <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                         width="16">
+                        <path d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
+                              fill-rule="evenodd"/>
+                        <path d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card" style="margin: var(--spacing-xl) 0; text-align: center; padding: var(--spacing-xxl);">
+        <div style="margin-bottom: var(--spacing-lg);">
+            <svg fill="currentColor" height="80" style="color: var(--danger);" viewBox="0 0 16 16" width="80">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+        </div>
+
+        <h1 style="margin: var(--spacing-md) 0; background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+                   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            Booking Error
+        </h1>
+
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin: var(--spacing-lg) 0;">
+            We're sorry, but we couldn't complete your booking. The screening might be fully booked or no longer available.
+        </p>
+
+        <div style="margin-top: var(--spacing-xl); display: flex; gap: var(--spacing-md); justify-content: center;">
+            <a class="btn btn-primary" href="/movies">
+                <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                     width="16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                </svg>
+                Browse Movies
+            </a>
+            <a class="btn btn-outline" href="javascript:history.back()">
+                <svg fill="currentColor" height="16" style="vertical-align: middle; margin-right: 4px;" viewBox="0 0 16 16"
+                     width="16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+                          fill-rule="evenodd"/>
+                </svg>
+                Go Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p class="text-muted">© 2025 BookMyMovie. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/site.js"></script>
+
 </body>
 </html>

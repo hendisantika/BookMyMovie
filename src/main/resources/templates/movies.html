@@ -60,9 +60,9 @@
 
     <div class="movie-cards">
         <div class="movie-card" th:each="movie:${movies}">
-            <a target="_blank" th:href="@{/movies/{movieId}(movieId=${movie.movieId})}">
+            <div class="movie-poster-container" style="cursor: pointer;" th:data-movie-name="${movie.movieName}">
                 <img th:alt="${movie.movieName}" th:src="${movie.moviePosterUrl}"/>
-            </a>
+            </div>
             <h5 th:text="${movie.movieName}">Movie Title</h5>
             <h6 th:text="${movie.movieTags}">Action, Adventure</h6>
             <button class="btn btn-primary btn-sm btn-block book-tickets-btn" th:data-movie-name="${movie.movieName}">
