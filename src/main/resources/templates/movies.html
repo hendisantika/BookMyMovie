@@ -60,7 +60,7 @@
 
     <div class="movie-cards">
         <div class="movie-card" th:each="movie:${movies}">
-            <a target="_blank" th:href="@{https://movielens.org/movies/{movieId}(movieId=${movie.movieId})}">
+            <a target="_blank" th:href="@{/movies/{movieId}(movieId=${movie.movieId})}">
                 <img th:alt="${movie.movieName}" th:src="${movie.moviePosterUrl}"/>
             </a>
             <h5 th:text="${movie.movieName}">Movie Title</h5>
