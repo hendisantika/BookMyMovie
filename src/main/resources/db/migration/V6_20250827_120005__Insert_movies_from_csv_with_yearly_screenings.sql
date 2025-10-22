@@ -50,7 +50,7 @@ INSERT INTO MOVIE (MOVIE_ID, MOVIE_NAME, MOVIE_POSTER_URL, MOVIE_TAGS) VALUES
 (40, 'The Departed (2006)', 'https://image.tmdb.org/t/p/w500/nT97ifVT2J1yMQmeq20Qblg61T.jpg', 'Crime|Drama|Thriller'),
 (41, 'Whiplash (2014)', 'https://image.tmdb.org/t/p/w500/7fn624j5lj3xTme2SgiLCeuedmO.jpg', 'Drama|Music'),
 (42, 'The Prestige (2006)', 'https://image.tmdb.org/t/p/w500/tRNlZbgNCNOpLpbPEz5L8G8A0JN.jpg', 'Drama|Mystery|Sci-Fi|Thriller'),
-(43, 'The Usual Suspects (1995)', 'https://image.tmdb.org/t/p/w500/9Xf5MNRc1cJyGJcqD3k2N2FKRcY.jpg', 'Crime|Drama|Mystery|Thriller'),
+(43, 'The Usual Suspects (1995)', 'https://img.vwassets.com/orpheum.com.au/vertical_38caa210-793a-4616-8d16-eae47201efc2.jpg', 'Crime|Drama|Mystery|Thriller'),
 (44, 'Casablanca (1942)', 'https://image.tmdb.org/t/p/w500/5K7cOHoay2mZusSLezBOY0Qxh8a.jpg', 'Drama|Romance|War'),
 (45, 'Grave of the Fireflies (1988)', 'https://image.tmdb.org/t/p/w500/k9tv1rXZbOhH7eiCk4XYRlHLz4k.jpg', 'Animation|Drama|War'),
 (46, 'Cinema Paradiso (1988)', 'https://image.tmdb.org/t/p/w500/8SRUfRUi6x4O68n0VCbDNRa6iGL.jpg', 'Drama|Romance'),

@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -53,7 +52,8 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/static/**", "/registration", "/movies/**").permitAll()
+                        .requestMatchers("/static/**", "/assets/**", "/css/**", "/images/**",
+                                       "/js/**", "/templates/**", "/registration", "/movies/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -68,17 +68,6 @@ public class WebSecurityConfig {
                         .permitAll()
                 );
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/static/**")
-                .requestMatchers("/assets/**")
-                .requestMatchers("/css/**")
-                .requestMatchers("/images/**")
-                .requestMatchers("/js/**")
-                .requestMatchers("/templates/**");
     }
 
     @Bean
