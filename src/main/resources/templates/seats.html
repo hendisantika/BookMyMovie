@@ -107,13 +107,79 @@
             Select Your Seats
         </h3>
 
-        <div class="booking-seats">
-            <h2 style="text-align:center;">Booking seats...</h2>
-            <div class="loader"></div>
+        <!-- Screen Indicator -->
+        <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+            <div style="width: 80%; margin: 0 auto; padding: var(--spacing-sm); background: linear-gradient(to bottom, #333, #000);
+                        border-radius: var(--radius-md) var(--radius-md) 50% 50%; color: #fff; font-weight: 600;">
+                SCREEN
+            </div>
         </div>
 
-        <div class="booking-success">
-            <p>
+        <!-- Seat Legend -->
+        <div style="display: flex; justify-content: center; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg); flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                <div style="width: 32px; height: 32px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: #fff;"></div>
+                <span>Available</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                <div style="width: 32px; height: 32px; border: 2px solid var(--primary); border-radius: var(--radius-sm); background: var(--primary);"></div>
+                <span>Selected</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                <div style="width: 32px; height: 32px; border: 2px solid #ccc; border-radius: var(--radius-sm); background: #e0e0e0; opacity: 0.5;"></div>
+                <span>Booked</span>
+            </div>
+        </div>
+
+        <!-- Seat Grid -->
+        <div id="seatMap" style="max-width: 700px; margin: 0 auto var(--spacing-xl) auto;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-sm);"
+                 th:each="row : ${seatsByRow}">
+                <!-- Row Label -->
+                <div style="width: 40px; text-align: center; font-weight: 600; color: var(--text-secondary);"
+                     th:text="${row.key}">A
+                </div>
+
+                <!-- Seats in Row -->
+                <div style="display: flex; gap: var(--spacing-xs);">
+                    <button class="seat"
+                            style="width: 42px; height: 42px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+                                   background: #fff; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                            th:attr="data-seat-id=${seat.seatId}, data-row=${seat.rowId}, data-number=${seat.seatRowNumber}"
+                            th:classappend="${bookedSeatIds.contains(seat.seatId)} ? 'seat booked' : 'seat available'"
+                            th:disabled="${bookedSeatIds.contains(seat.seatId)}"
+                            th:each="seat : ${row.value}"
+                            th:text="${seat.seatRowNumber}">
+                        1
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Seats Summary -->
+        <div id="selectionSummary"
+             style="text-align: center; padding: var(--spacing-lg); background: var(--bg-secondary); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg);">
+            <p style="margin: 0 0 var(--spacing-sm) 0; font-size: 0.95rem; color: var(--text-secondary);">
+                Selected Seats: <strong id="selectedSeats">None</strong>
+            </p>
+            <p style="margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--primary);">
+                Total Seats: <span id="seatCount">0</span>
+            </p>
+        </div>
+
+        <!-- Continue Button -->
+        <div style="text-align: center;">
+            <button disabled id="continueBtn"
+                    style="padding: var(--spacing-md) var(--spacing-xl); background: var(--primary); color: white;
+                           border: none; border-radius: var(--radius-md); font-size: 1rem; font-weight: 600;
+                           cursor: not-allowed; opacity: 0.5; transition: all 0.3s ease;">
+                Continue to Payment
+            </button>
+        </div>
+
+        <div class="booking-success"
+             style="display: none; text-align: center; padding: var(--spacing-lg); background: #d4edda; border: 1px solid #c3e6cb; border-radius: var(--radius-md); color: #155724; margin-top: var(--spacing-lg);">
+            <p style="margin: 0;">
                 <strong>Success!</strong> Enjoy the show!
             </p>
         </div>
@@ -129,6 +195,140 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="/js/site.js"></script>
+
+<script>
+    $(document).ready(function () {
+        const selectedSeats = new Set();
+        const screeningId = [[${screeningId}]];
+
+        // Handle seat selection
+        $('.seat.available').on('click', function () {
+            const $seat = $(this);
+            const seatId = $seat.data('seat-id');
+            const row = $seat.data('row');
+            const number = $seat.data('number');
+            const seatLabel = row + number;
+
+            if ($seat.hasClass('selected')) {
+                // Deselect
+                $seat.removeClass('selected');
+                $seat.css({
+                    'background': '#fff',
+                    'border-color': 'var(--border)',
+                    'transform': 'scale(1)'
+                });
+                selectedSeats.delete(seatId);
+            } else {
+                // Select
+                $seat.addClass('selected');
+                $seat.css({
+                    'background': 'var(--primary)',
+                    'color': '#fff',
+                    'border-color': 'var(--primary)',
+                    'transform': 'scale(1.1)'
+                });
+                selectedSeats.add(seatId);
+            }
+
+            updateSelection();
+        });
+
+        // Update selection summary
+        function updateSelection() {
+            const count = selectedSeats.size;
+            const seatLabels = $('.seat.selected').map(function () {
+                return $(this).data('row') + $(this).data('number');
+            }).get().join(', ');
+
+            $('#seatCount').text(count);
+            $('#selectedSeats').text(count > 0 ? seatLabels : 'None');
+
+            // Enable/disable continue button
+            const $btn = $('#continueBtn');
+            if (count > 0) {
+                $btn.prop('disabled', false);
+                $btn.css({
+                    'cursor': 'pointer',
+                    'opacity': '1'
+                });
+            } else {
+                $btn.prop('disabled', true);
+                $btn.css({
+                    'cursor': 'not-allowed',
+                    'opacity': '0.5'
+                });
+            }
+        }
+
+        // Style booked seats
+        $('.seat.booked').css({
+            'background': '#e0e0e0',
+            'border-color': '#ccc',
+            'opacity': '0.5',
+            'cursor': 'not-allowed'
+        });
+
+        // Handle continue button click
+        $('#continueBtn').on('click', function () {
+            if (selectedSeats.size === 0) {
+                alert('Please select at least one seat');
+                return;
+            }
+
+            const $btn = $(this);
+            const originalText = $btn.text();
+
+            // Disable button and show loading state
+            $btn.prop('disabled', true);
+            $btn.text('Booking...');
+            $btn.css({'opacity': '0.7', 'cursor': 'not-allowed'});
+
+            const seatIds = Array.from(selectedSeats);
+
+            // Send booking request to server
+            $.ajax({
+                url: '/seats/book',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    screeningId: screeningId,
+                    seatIds: seatIds
+                }),
+                success: function (response) {
+                    console.log('Booking successful:', response);
+
+                    // Show success message
+                    $('.booking-success').fadeIn();
+                    setTimeout(function () {
+                        window.location.href = '/movies';
+                    }, 2000);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Booking failed:', xhr.responseJSON || error);
+
+                    let errorMessage = 'Failed to book seats. Please try again.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    alert(errorMessage);
+
+                    // Re-enable button
+                    $btn.prop('disabled', false);
+                    $btn.text(originalText);
+                    $btn.css({'opacity': '1', 'cursor': 'pointer'});
+
+                    // If seats were already booked, reload the page to refresh seat availability
+                    if (xhr.status === 409) {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
