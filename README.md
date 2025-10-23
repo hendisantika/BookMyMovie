@@ -25,6 +25,26 @@ book seats at various theaters.
 - **Containerization**: Docker Compose
 - **Additional Libraries**: Lombok, JSoup, Spring Boot DevTools
 
+## Image Screenshots
+
+Login Page
+
+![Login Page](img/login.png "Login Page")
+
+Theatres Page
+
+![Theatres Page](img/Theatres.png "Theatres Page")
+
+Now Showing Page
+
+![Now Showing Page](img/Now-Showing.png "Now Showing Page")
+
+![Now Showing Page](img/Now-Showing2.png "Now Showing Page")
+
+Booking Error
+
+![Booking Error](img/Booking-Error.png "Booking Error")
+
 ## Project Structure
 
 ```
