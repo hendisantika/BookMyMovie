@@ -41,6 +41,10 @@ Now Showing Page
 
 ![Now Showing Page](img/Now-Showing2.png "Now Showing Page")
 
+Pick your seat
+
+![Pick your seat](img/Pick-Your-Seats.png "Pick your seat")
+
 Booking Error
 
 ![Booking Error](img/Booking-Error.png "Booking Error")

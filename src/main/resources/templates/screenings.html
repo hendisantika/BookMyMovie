@@ -94,7 +94,8 @@
                     </td>
                     <td>
                         <a class="btn btn-primary btn-sm"
-                           th:href="@{/seats(movieName=${screening.movieName},
+                           th:href="@{/seats(screeningId=${screening.screeningId},
+                                            movieName=${screening.movieName},
                                             moviePoster=${screening.moviePosterURL},
                                             theatreName=${screening.theatreName},
                                             theatreCity=${screening.theatreCity},

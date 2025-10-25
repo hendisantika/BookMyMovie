@@ -113,6 +113,7 @@ public class ScreeningService {
                 Theatre theatre = theatreRepository.findByTheatreId(screening.getTheatreId());
                 Movie movieForScreening = movieRepository.findByMovieId(screening.getMovieId());
 
+                movieScreening.setScreeningId(screening.getScreeningId());
                 movieScreening.setMovieName(movieForScreening.getMovieName());
                 movieScreening.setMoviePosterURL(movieForScreening.getMoviePosterUrl());
 

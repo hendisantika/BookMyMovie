@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -85,6 +84,7 @@ class ScreeningServiceTest {
         testScreening.setBookedTickets(10);
 
         testMovieScreening = new MovieScreening(
+                1L,
                 "The Shawshank Redemption",
                 "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
                 1L,

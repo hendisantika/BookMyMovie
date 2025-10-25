@@ -51,6 +51,7 @@ class ScreeningControllerTest {
 
         testScreenings = new ArrayList<>();
         MovieScreening screening1 = new MovieScreening(
+                1L,
                 "The Shawshank Redemption",
                 "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
                 1L,
@@ -61,6 +62,7 @@ class ScreeningControllerTest {
                 0
         );
         MovieScreening screening2 = new MovieScreening(
+                2L,
                 "The Shawshank Redemption",
                 "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
                 2L,

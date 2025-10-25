@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieScreening {
+    private long screeningId;
     private String movieName;
     private String moviePosterURL;
     private long theatreId;
